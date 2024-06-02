@@ -50,7 +50,7 @@ export const onAddOrder = createAsyncThunk(
 
 export const onUpdateOrder = createAsyncThunk(
   'order/updateOrder',
-  async ({ id, order }: { id: number; order: Partial<Order> }) => {
+  async ({ order }: { id: number; order: Partial<Order> }) => {
     try {
       const { data } = await API.patch(`/orders/updateOrder`, order);
       toast.success(`Order updated successfully`);
