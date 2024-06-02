@@ -9,7 +9,7 @@ export const onGetOrders = createAsyncThunk(
   async ({ page = 1, limit = 5 }: QueryParams) => {
     try {
       const { data } = await API.get(
-        `/orders?page=${page}&limit=${limit}`,
+        `/orders/retrieve?page=${page}&itemsPerPage=${limit}`,
       );
       return data;
     } catch (error: any) {
@@ -38,7 +38,7 @@ export const onAddOrder = createAsyncThunk(
   'order/addOrder',
   async (order: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>) => {
     try {
-      const { data } = await API.post('/orders', order);
+      const { data } = await API.post('/orders/create', order);
       return data;
     } catch (error: any) {
       const message = error.response?.data?.message || error?.message;
@@ -52,7 +52,7 @@ export const onUpdateOrder = createAsyncThunk(
   'order/updateOrder',
   async ({ id, order }: { id: number; order: Partial<Order> }) => {
     try {
-      const { data } = await API.patch(`/orders/${id}`, order);
+      const { data } = await API.patch(`/orders/updateOrder`, order);
       toast.success(`Order updated successfully`);
       return data;
     } catch (error: any) {
